@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Product} from './product.model';
 import {StaticDataSource} from './static.datasource';
 
-@Injectable
+@Injectable()
 export class ProductRepository {
   private _products: Product[] = [];
   private _categories: string[] = [];
@@ -23,7 +23,7 @@ export class ProductRepository {
   }
 
   getProduct(id: number): Product {
-    return this._products.find(p => p.id === id);
+    return this._products.find(item => item.id === id);
   }
 
   getCategories(): string[] {
