@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Product} from '../model/product.model';
-import {ProductRepository} from '../model/product.repository';
+import { Component, OnInit } from '@angular/core';
+import { Product } from '../model/product.model';
+import { ProductRepository } from '../model/product.repository';
+import { Cart } from '../model/cart.model';
 
 @Component({
   selector: 'app-store',
@@ -12,7 +13,7 @@ export class StoreComponent implements OnInit {
   public productsPerPage = 4;
   public selectedPage = 1;
 
-  constructor(private _repository: ProductRepository) {
+  constructor(private _repository: ProductRepository, private _cart: Cart) {
   }
 
   get products(): Product[] {
@@ -47,6 +48,10 @@ export class StoreComponent implements OnInit {
 
   changeCategory(newCategory?: string) {
     this.selectedCategory = newCategory;
+  }
+
+  addProductToCart(product: Product) {
+    this._cart.addLine(product);
   }
 
   ngOnInit() {

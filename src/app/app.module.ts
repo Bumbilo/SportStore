@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { StoreModule } from './store/store.module';
+import { Cart } from './model/cart.model';
 
 
 @NgModule({
@@ -11,9 +12,9 @@ import { StoreModule } from './store/store.module';
   ],
   imports: [
     BrowserModule,
-    StoreModule
+    StoreModule,
   ],
-  providers: [],
+  providers: [Cart],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
