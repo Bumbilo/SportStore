@@ -31,6 +31,7 @@
     <div class="card-text p-a-1">
       {{product.description}}
       <button class="btn btn-success btn-sm pull-xs-right"
+              routerLink="/cart"
               (click)="addProductToCart(product)">
         Add To Cart
       </button>
