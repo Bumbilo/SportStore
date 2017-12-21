@@ -8,7 +8,7 @@ import { AuthService } from '../model/auth.service';
   templateUrl: 'auth.component.html'
 })
 export class AuthComponent {
-  public userName: string;
+  public username: string;
   public password: string;
   public errorMessage: string;
 
@@ -17,7 +17,7 @@ export class AuthComponent {
 
   authenticate(form: NgForm) {
     if (form.valid) {
-      this._auth.authenticate(this.userName, this.password)
+      this._auth.authenticate(this.username, this.password)
         .subscribe(response => {
           if (response) {
             this._router.navigateByUrl('/admin/main');

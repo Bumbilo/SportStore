@@ -33,7 +33,7 @@ export class StaticDataSource {
   }
 
   saveOrder(order: Order) {
-    console.log(JSON.stringify(order));
+
     return Observable.from([order]);
   }
 }

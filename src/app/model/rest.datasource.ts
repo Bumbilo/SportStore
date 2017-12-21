@@ -19,11 +19,13 @@ export class RestDataSource {
   }
 
   authenticate(user: string, pass: string): Observable<boolean> {
+
     return this.http.request(new Request({
       method: RequestMethod.Post,
       url: this.baseUrl + 'login',
       body: {name: user, password: pass}
     })).map(response => {
+
       const res = response.json();
       this.auth_token = res.success ? res.token : null;
       return res.success;
