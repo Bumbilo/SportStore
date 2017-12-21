@@ -1,32 +1,49 @@
-import {Injectable} from '@angular/core';
-import {Product} from './product.model';
-import {StaticDataSource} from './static.datasource';
+import { Injectable } from '@angular/core';
+import { Product } from './product.model';
+import { RestDataSource } from './rest.datasource';
+
 
 @Injectable()
 export class ProductRepository {
-  private _products: Product[] = [];
-  private _categories: string[] = [];
 
-  constructor(private _dataSource: StaticDataSource) {
-    _dataSource.getProducts().subscribe(data => {
-      this._products = data;
-      this._categories = data
-        .map((item) => item.category)
-        .filter((item, index, array) => array.indexOf(item) === index)
-        .sort();
+  private products: Product[] = [];
+  private categories: string[] = [];
+
+  constructor(private dataSource: RestDataSource) {
+    dataSource.getProducts().subscribe(data => {
+      this.products = data;
+      this.categories = data.map(p => p.category)
+        .filter((c, index, array) => array.indexOf(c) == index).sort();
     });
   }
 
   getProducts(category: string = null): Product[] {
-    return this._products
-      .filter(p => category == null || category === p.category);
+    return this.products
+      .filter(p => category == null || category == p.category);
   }
 
   getProduct(id: number): Product {
-    return this._products.find(item => item.id === id);
+    return this.products.find(p => p.id == id);
   }
 
   getCategories(): string[] {
-    return this._categories;
+    return this.categories;
+  }
+
+  saveProduct(product: Product) {
+    if (product.id == null || product.id == 0) {
+      this.dataSource.saveProduct(product)
+        .subscribe(p => this.products.push(p));
+    } else {
+      this.dataSource.updateProduct(product).subscribe(p => {
+        this.products.splice(this.products.findIndex(p => p.id == product.id), 1, product);
+      });
+    }
+  }
+
+  deleteProduct(id: number) {
+    this.dataSource.deleteProduct(id).subscribe(p => {
+      this.products.splice(this.products.findIndex(p => p.id == id), 1);
+    });
   }
 }

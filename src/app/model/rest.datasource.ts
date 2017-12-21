@@ -34,6 +34,36 @@ export class RestDataSource {
     return this.sendRequest(RequestMethod.Get, 'products');
   }
 
+  saveProduct(product: Product) {
+    return this.sendRequest(RequestMethod.Post, 'products',
+      product, true);
+  }
+
+  updateProduct(product) {
+    return this.sendRequest(RequestMethod.Put,
+      `products/${product.id}`, product, true);
+  }
+
+  deleteProduct(id: number) {
+    return this.sendRequest(RequestMethod.Delete,
+      `products/${id}`, null, true);
+  }
+
+  getOrders() {
+    return this.sendRequest(RequestMethod.Get,
+      'orders', null, true);
+  }
+
+  deleteOrder(id: number) {
+    return this.sendRequest(RequestMethod.Delete,
+      `orders/${id}`, null, true);
+  }
+
+  updateOrder(order: Order) {
+    return this.sendRequest(RequestMethod.Put,
+      `orders/${order.id}`, order, true);
+  }
+
   saveOrder(order: Order) {
     return this.sendRequest(RequestMethod.Post, 'orders', order);
   }
